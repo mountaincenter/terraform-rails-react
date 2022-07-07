@@ -3,11 +3,11 @@ orbs:
   aws-ecr: circleci/aws-ecr@8.1.2
   aws-ecs: circleci/aws-ecs@2.3.0
   aws-s3:  circleci/aws-s3@1.0.11
-excutor:
+executors:
   default:
     docker:
       - image: cimg/python:3.10-browsers
-    working_directroy: ~/repo
+    working_directory: ~/repo
 commands:
   npm_install:
     steps:
@@ -58,7 +58,7 @@ jobs:
           name: "RSpec"
           working_directory: backend
           command: bundle exec rspec
-  react_build:
+  build:
     executor: default
     steps:
       - checkout
@@ -70,7 +70,7 @@ jobs:
           paths:
             - "*"
             - ".*"
-  react_deploy:
+  deploy:
     executor: default
     steps:
       - attach_workspace:
@@ -83,14 +83,13 @@ jobs:
           from: build
           to: s3://web.ymnk.fun
           overwrite: true
-
 workflows:
   rails-deploy:
     jobs:
-      - test
+      - api_test
       - aws-ecr/build-and-push-image:
           requires:
-            - test
+            - api_test
           aws-access-key-id:  AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           context: aws
