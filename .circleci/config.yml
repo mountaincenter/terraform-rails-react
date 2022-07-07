@@ -118,9 +118,22 @@ workflows:
           repo-scan-on-push: true
           skip-when-tags-exist: false
           tag: "${CIRCLE_SHA1}"
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          family: 'tf-app'
+          service-name: 'tf-app-service'
+          cluster-name: 'tf-app'
+          container-image-name-updates: 'container=nginx,image-and-tag=${AWS_ECR_ACCOUNT_URL}/nginx:${CIRCLE_SHA1}'
   react-build-deplpy:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only: main
       - deploy:
           requires:
             - build
+          filters:
+            branches:
+              only: main
