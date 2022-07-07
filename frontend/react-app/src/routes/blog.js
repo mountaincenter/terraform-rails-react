@@ -11,7 +11,7 @@ function Blog() {
       setBlog(res.data)
     }
     f()
-  }, [blog, setBlog])
+  }, [dispatch])
   return (
     <div style={{ margin: "auto", width: "1000px" }}>
       <h1>ブログ詳細画面</h1>
