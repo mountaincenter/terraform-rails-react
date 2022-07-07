@@ -103,6 +103,14 @@ workflows:
           skip-when-tags-exist: false
           tag: "latest"
           extra-build-args: '--build-arg RAILS_MASTER_KEY=${RAILS_MASTER_KEY}'
+      - aws-ecs/deploy-service-update:
+          context: aws
+          requires:
+            - aws-ecr/build-and-push-image
+          family: 'tf-app'
+          service-name: 'tf-app-service'
+          cluster-name: 'tf-app'
+          container-image-name-updates: 'container=rails,image-and-tag=${AWS_ECR_ACCOUNT_URL}/tf-app:${CIRCLE_SHA1}'
   nginx-deploy:
     jobs:
       - aws-ecr/build-and-push-image:
