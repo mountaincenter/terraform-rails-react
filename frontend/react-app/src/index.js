@@ -3,11 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Blogs from './routes/blogs';
+import Blog from './routes/blog';
+import CreateBlog from './routes/createBlog';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<App />} />
+        <Route path="create" element={<CreateBlog />} />
+        <Route path="blogs" element={<Blogs />} />
+        <Route path="blogs/:id" element={<Blog />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

@@ -1,25 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import { Link } from "react-router-dom"
 
 function App() {
+  console.log(process.env.REACT_APP_API_DOMEIN)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ margin: "auto", width: "1000px"}}>
+      <h1>ブログアプリ</h1>
+      <div><Link to="create">記事作成画面</Link></div>
+      <div><Link to="blogs">記事一覧画面</Link></div>
     </div>
-  );
+  )
 }
 
 export default App;
