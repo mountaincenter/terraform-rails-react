@@ -10,7 +10,7 @@ function Blogs() {
       setBlogs(res.data)
     }
     f()
-  }, [])
+  }, [blogs, setBlogs])
 
   return (
     <div style={{ margin: "auto", width: "1000px" }}>
