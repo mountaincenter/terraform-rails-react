@@ -28,7 +28,8 @@ services:
     depends_on:
       - db
   front:
-    # env_file: ./frontend/react-app/.env
+    env_file:
+      - ./frontend/react-app/.env
     build:
       context: ./frontend/
       dockerfile: Dockerfile
@@ -37,6 +38,7 @@ services:
     environment:
       - ./frontend/.env
     command: sh -c "yarn start"
+    # command: sh -c "npm run build && npm install -g serve && serve -s build"
     ports:
       - "3000:3000"
   terraform:

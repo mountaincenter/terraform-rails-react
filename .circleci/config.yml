@@ -86,7 +86,10 @@ jobs:
 workflows:
   rails-deploy:
     jobs:
-      - api_test
+      - api_test:
+          filters:
+            branches:
+              only: main
       - aws-ecr/build-and-push-image:
           requires:
             - api_test
@@ -137,12 +140,6 @@ workflows:
   react-build-deplpy:
     jobs:
       - build:
-          filters:
-            branches:
-              only: main
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only: main
