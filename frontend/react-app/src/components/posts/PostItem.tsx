@@ -48,7 +48,7 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
               <MoreVertIcon />
             </IconButton>
           }
-          title="User Name"
+          title={post.user.name}
           subheader={formatDistance(new Date(), Date.parse(post.createdAt), {locale:ja})}
         />
         { post.image?.url ?

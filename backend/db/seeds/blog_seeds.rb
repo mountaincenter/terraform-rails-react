@@ -14,7 +14,7 @@
   else
     Blog.create!(
       title: Faker::JapaneseMedia::StudioGhibli.character,
-      contents:Faker::JapaneseMedia::StudioGhibli.quote
+      contents:Faker::Lorem.paragraph,
     )
   end
 end

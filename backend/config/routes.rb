@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   root to:"home#index"
   get  'home/index'
   resources :blogs
-  resources :posts, only: %i[index create destroy]
+  resources :posts, only: %i[index create destroy show]
 end

@@ -1,4 +1,4 @@
-seed_models = %i[blog]
+seed_models = %i[user, post]
 
 all_process_time = Benchmark.realtime do
   seed_models.each do |model|

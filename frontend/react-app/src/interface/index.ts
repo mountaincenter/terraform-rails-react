@@ -18,6 +18,11 @@ export interface Post {
   image?: {
     url: string
   }
+  user: {
+    id: number,
+    name: string
+    email: string
+  }
   createdAt?: any
 }
 

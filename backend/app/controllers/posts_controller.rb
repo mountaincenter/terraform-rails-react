@@ -1,18 +1,27 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[destroy]
+  before_action :set_post, only: %i[show destroy]
 
   def index
-    render json: { posts: Post.all.order("created_at DESC") }
+    posts = Post.order(created_at: :desc).limit(20)
+    render json: posts
+  end
+
+  def show
+    render json: @post
   end
 
   def create
     post = Post.new(post_params)
-    post.save
+    if post.save
+      render json: post
+    else
+      render json: { errors: post.errors }
+    end
   end
 
   def destroy
-    post = Post.find(params[:id])
-    post.destroy
+    @post.destroy
+    render json: @post
   end
 
   private
@@ -22,6 +31,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.permit(:content, :image)
+      params.permit(:content, :image, :user_id)
     end
 end
