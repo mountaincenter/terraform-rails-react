@@ -1,4 +1,12 @@
 # rails_react_spa
+
+[rails,react]aioxs edit,update,destroy
+
+[react]card grid,created_at,like,shere,menu
+
+[rails] user_model (devise_auth_token)
+
+[rails7 api]post model(title, photo, contexts)
 ## railsの手順
 ```bash
 # current directryでの新規作成
