@@ -21,6 +21,22 @@ const Header: React.FC = () => {
           >
             Blog
           </Typography>
+          <Button
+            component={Link}
+            to="/signin"
+            color="inherit"
+            sx={{ textTransform: "none"}}
+          >
+            Sign In
+          </Button>
+          <Button
+            component={Link}
+            to="/signup"
+            color="inherit"
+            sx={{ textTransform: "none" }}
+          >
+            Sign Up
+          </Button>
         </Toolbar>
       </AppBar>
     </>
