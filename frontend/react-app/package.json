@@ -19,6 +19,7 @@
     "axios-case-converter": "^0.9.0",
     "boring-avatars": "^1.7.0",
     "date-fns": "^2.29.2",
+    "js-cookie": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
@@ -52,6 +53,7 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/js-cookie": "^3.0.2",
     "@types/react-router-dom": "^5.3.3"
   }
 }
