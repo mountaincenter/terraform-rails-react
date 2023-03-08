@@ -6,8 +6,8 @@ RUN apt-get update -qq && \
 
 RUN mkdir /app
 WORKDIR /app
-COPY ./Gemfile /app/Gemfile
-COPY ./Gemfile.lock /app/Gemfile.lock
+COPY ./backend/Gemfile /app/Gemfile
+COPY ./backend/Gemfile.lock /app/Gemfile.lock
 RUN gem install bundler
 RUN bundle install --without test development
 ADD . /app
