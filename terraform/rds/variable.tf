@@ -11,7 +11,7 @@ variable "engine" {
 }
 variable "engine_version" {
   type    = string
-  default = "8.0.29"
+  default = "8.0.32"
 }
 variable "db_instance" {
   type    = string
