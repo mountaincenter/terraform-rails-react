@@ -43,15 +43,30 @@ jobs:
 
       - name: Terraform Init
         id: init
+        working-directory: ./terraform
         run: terraform init
 
       - name: Terraform Validate
         id: validate
+        working-directory: ./terraform
         run: terraform validate -no-color
 
       - name: Terraform Plan
         id: plan
         # if: github.event_name == 'pull_request'
+        working-directory: ./terraform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: tfcmt plan -patch -- terraform plan -no-color -input=false
+
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        working-directory: ./terraform
+        run: exit 1
+
+      - name: Terraform Apply
+        # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        working-directory: ./terraform
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: tfcmt apply -- terraform apply -auto-approve -input=false
