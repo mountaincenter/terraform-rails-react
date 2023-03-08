@@ -72,7 +72,7 @@ jobs:
         working-directory: ./terraform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: tfcmt plan -patch -- terraform plan -no-color -input=false
+        run: tfcmt plan -patch -- terraform plan -no-color -target=module.ecr -input=false
 
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
@@ -84,7 +84,7 @@ jobs:
         working-directory: ./terraform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: tfcmt apply -- terraform apply -auto-approve -input=false
+        run: tfcmt apply -- terraform apply -auto-approve -target=module.ecr -input=false
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
