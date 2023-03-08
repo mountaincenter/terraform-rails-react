@@ -107,13 +107,23 @@ jobs:
         with:
           registry: ${{ env.ECR_REGISTRY }}
 
-      - name: Build and push
+      - name: Build and push(tf-app)
         uses: docker/build-push-action@v3
         with:
           push: true
           file: backend/prd/Dockerfile
           tags: |
             ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+      - name: Build and push(nginx)
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          file: backend/prd/nginx/Dockerfile
+          tags: |
+            ${{ env.ECR_REGISTRY }}/nginx:${{ github.sha }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -126,7 +136,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ./aws/task-definition.json
+          task-definition: ./terraform/ecs_rails/contaner_definitions.json
           container-name: ${{ env.APP }}
           image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
 
