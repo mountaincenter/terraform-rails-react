@@ -111,7 +111,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          file: backend/Dockerfile_prd
+          file: backend/prd/Dockerfile
           tags: |
             ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
           cache-from: type=local,src=/tmp/.buildx-cache
