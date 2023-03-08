@@ -136,7 +136,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ./terraform/ecs_rails/contaner_definitions.json
+          task-definition: ./terraform/ecs_rails/container_definitions.json
           container-name: ${{ env.APP }}
           image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
 
