@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { Card, CardHeader, CardContent, TextField, Button, Box, Typography } from "@mui/material"
 import Cookies from "js-cookie"
+import { AuthContext } from "../../App"
 import AlertMessage from "../utils/AlertMessage"
 import { SignInParams } from "../../interface"
 import { signIn } from "../../lib/api/auth"
@@ -9,16 +10,70 @@ import { signIn } from "../../lib/api/auth"
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate()
+  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
-  const handleSubmit = async(e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-  }
 
-  const handleEasySubmit = async(e: React.MouseEvent<HTMLButtonElement>) => {
+    const params: SignInParams = {
+      email: email,
+      password: password
+    }
+
+    try {
+      const res = await signIn(params)
+
+      if (res.status === 200) {
+        Cookies.set("_access_token", res.headers["access-token"])
+        Cookies.set("_client", res.headers["client"])
+        Cookies.set("_uid", res.headers["uid"])
+
+        setIsSignedIn(true)
+        setCurrentUser(res.data.data)
+
+        navigate("/")
+
+        console.log("Signed in successfully!")
+      } else {
+        setAlertMessageOpen(true)
+      }
+    } catch (err) {
+      console.log(err)
+      setAlertMessageOpen(true)
+    }
+  }
+  const handleEasySubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
+
+    const params: SignInParams = {
+      email: "test1@example.com",
+      password: "password"
+    }
+
+    try {
+      const res = await signIn(params)
+
+      if (res.status === 200) {
+        Cookies.set("_access_token", res.headers["access-token"])
+        Cookies.set("_client", res.headers["client"])
+        Cookies.set("_uid", res.headers["uid"])
+
+        setIsSignedIn(true)
+        setCurrentUser(res.data.data)
+
+        navigate("/")
+
+        console.log("Signed in successfully!")
+      } else {
+        setAlertMessageOpen(true)
+      }
+    } catch (err) {
+      console.log(err)
+      setAlertMessageOpen(true)
+    }
   }
 
   return (

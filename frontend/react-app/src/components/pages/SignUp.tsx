@@ -2,14 +2,14 @@ import React, { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import Cookies from "js-cookie"
 import { TextField, Card, CardContent, CardHeader, Button} from "@mui/material"
-// import { AuthContext } from "App"
+import { AuthContext } from "../../App"
 import AlertMessage from "../../components/utils/AlertMessage"
 import { signUp } from "../../lib/api/auth"
 import { SignUpParams } from "../../interface"
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate()
-  // const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
+  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
   const [name, setName] = useState<string>("")
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")

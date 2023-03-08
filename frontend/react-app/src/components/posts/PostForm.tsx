@@ -19,7 +19,6 @@ interface PostFormProps {
 }
 
 const PostForm = ({ handleGetPosts }: PostFormProps) => {
-
   const [content, setContent] = useState<string>("")
   const [image, setImage] = useState<File>()
   const [preview, setPreview] = useState<string>("")
