@@ -66,7 +66,7 @@ jobs:
         working-directory: ./terraform
         run: terraform validate -no-color
 
-      - name: Terraform Plan
+      - name: Terraform Plan Target ECR
         id: plan
         # if: github.event_name == 'pull_request'
         working-directory: ./terraform
@@ -74,12 +74,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: tfcmt plan -patch -- terraform plan -no-color -target=module.ecr -input=false
 
-      - name: Terraform Plan Status
+      - name: Terraform Plan Status Target ECR
         if: steps.plan.outcome == 'failure'
         working-directory: ./terraform
         run: exit 1
 
-      - name: Terraform Apply
+      - name: Terraform Apply Target ECR
         # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         working-directory: ./terraform
         env:
@@ -151,6 +151,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: tfcmt apply -- terraform apply -auto-approve -input=false
+
       # - name: Fill in the new image ID in the Amazon ECS task definition
       #   id: task-def
       #   uses: aws-actions/amazon-ecs-render-task-definition@v1
